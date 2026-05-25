@@ -1,0 +1,9 @@
+node_modules
+dist
+coverage
+.git
+.pnpm-store
+.env
+npm-debug.log
+Dockerfile
+docker-compose.yml

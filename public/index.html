@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contactos Admin</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="login-view" id="loginView">
+        <div class="brand-panel">
+          <p class="eyebrow">Panel administrativo</p>
+          <h1>Contactos</h1>
+          <p class="lead">
+            Gestiona tu directorio con autenticacion de administrador y datos
+            persistidos en PostgreSQL.
+          </p>
+        </div>
+
+        <form class="login-card" id="loginForm">
+          <h2>Ingresar</h2>
+          <label>
+            Correo
+            <input
+              id="loginEmail"
+              name="email"
+              type="email"
+              autocomplete="email"
+              value="admin@app.com"
+              required
+            />
+          </label>
+          <label>
+            Password
+            <input
+              id="loginPassword"
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              value="admin123"
+              required
+            />
+          </label>
+          <button type="submit">Entrar</button>
+          <p class="message" id="loginMessage"></p>
+        </form>
+      </section>
+
+      <section class="dashboard hidden" id="dashboard">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">CRUD administrativo</p>
+            <h1>Directorio de contactos</h1>
+          </div>
+          <div class="user-actions">
+            <span id="userLabel"></span>
+            <button class="secondary" id="logoutButton" type="button">
+              Salir
+            </button>
+          </div>
+        </header>
+
+        <section class="workspace">
+          <form class="contact-form" id="contactForm">
+            <div class="form-header">
+              <h2 id="formTitle">Nuevo contacto</h2>
+              <button class="ghost hidden" id="cancelEditButton" type="button">
+                Cancelar
+              </button>
+            </div>
+            <input type="hidden" id="contactId" />
+            <label>
+              Nombres
+              <input id="firstName" name="firstName" required />
+            </label>
+            <label>
+              Apellidos
+              <input id="lastName" name="lastName" required />
+            </label>
+            <label>
+              Correo
+              <input id="email" name="email" type="email" required />
+            </label>
+            <label>
+              Telefono
+              <input id="phone" name="phone" required />
+            </label>
+            <label>
+              Empresa
+              <input id="company" name="company" />
+            </label>
+            <label>
+              Notas
+              <textarea id="notes" name="notes" rows="4"></textarea>
+            </label>
+            <button type="submit" id="saveButton">Guardar contacto</button>
+            <p class="message" id="formMessage"></p>
+          </form>
+
+          <section class="contacts-panel">
+            <div class="panel-tools">
+              <div>
+                <h2>Contactos</h2>
+                <p id="countLabel">0 registrados</p>
+              </div>
+              <input
+                id="searchInput"
+                class="search-input"
+                type="search"
+                placeholder="Buscar por nombre, correo, telefono..."
+              />
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Telefono</th>
+                    <th>Empresa</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="contactsBody"></tbody>
+              </table>
+              <p class="empty-state" id="emptyState">Sin contactos aun.</p>
+            </div>
+          </section>
+        </section>
+      </section>
+    </main>
+    <script src="/app.js"></script>
+  </body>
+</html>

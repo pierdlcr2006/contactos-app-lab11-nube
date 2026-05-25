@@ -1,0 +1,44 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: contactos_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: contacts_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d contacts_db"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  app:
+    build: .
+    container_name: contactos_app
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      PORT: 3000
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      DB_DATABASE: contacts_db
+      TYPEORM_SYNC: "true"
+      JWT_SECRET: cambia-este-secreto-en-produccion
+      JWT_EXPIRES_IN: 8h
+      ADMIN_EMAIL: admin@app.com
+      ADMIN_PASSWORD: admin123
+      ADMIN_NAME: Administrador
+    ports:
+      - "3000:3000"
+
+volumes:
+  postgres_data:
